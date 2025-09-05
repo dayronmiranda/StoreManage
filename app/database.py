@@ -36,7 +36,7 @@ async def init_db():
     """Initialize database and Beanie models"""
     try:
         # Import all models here to avoid circular imports
-        from app.models.user import User, Token
+        from app.models.user import User, Token, Permission, Role
         from app.models.product import Product, Category, UnitOfMeasure
         from app.models.warehouses import Warehouse
         from app.models.inventories import Inventory, InventoryMovement
@@ -56,6 +56,8 @@ async def init_db():
                 # Authentication
                 User,
                 Token,
+                Permission,
+                Role,
                 
                 # Products
                 Product,

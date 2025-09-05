@@ -632,7 +632,7 @@ async def list_expense_categories(
     
     query = {}
     if is_active is not None:
-        query["isActive"] = is_active
+        query["is_active"] = is_active
     
     categories = await ExpenseCategory.find(query).to_list()
     
@@ -641,7 +641,7 @@ async def list_expense_categories(
             id=str(category.id),
             name=category.name,
             description=category.description,
-            is_active=category.isActive,
+            is_active=category.is_active,
             code=category.code
         )
         for category in categories

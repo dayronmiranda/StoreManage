@@ -3,7 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import time
 import logging
+import sys
+from pathlib import Path
 from contextlib import asynccontextmanager
+
+# Add project root to Python path if running directly
+if __name__ == "__main__":
+    project_root = Path(__file__).parent.parent
+    sys.path.insert(0, str(project_root))
 
 from app.database import init_db, close_mongo_connection
 from app.config import settings

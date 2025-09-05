@@ -6,3 +6,7 @@ __pycache__
 .vscode
 venv
 Docs
+create_root_user.py
+init_database.py
+test_api_integrity.py
+test_login.py

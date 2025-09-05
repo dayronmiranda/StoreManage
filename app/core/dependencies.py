@@ -31,7 +31,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
         raise credentials_exception
     
     # Verify user is active
-    if not user.isActive:
+    if not user.is_active:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Inactive user"
@@ -44,7 +44,7 @@ async def get_current_active_user(
     current_user: User = Depends(get_current_user)
 ) -> User:
     """Get current active user"""
-    if not current_user.isActive:
+    if not current_user.is_active:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, 
             detail="Inactive user"
@@ -65,7 +65,7 @@ async def get_current_user_optional(
             return None
         
         user = await User.get(user_id)
-        if user is None or not user.isActive:
+        if user is None or not user.is_active:
             return None
             
         return user

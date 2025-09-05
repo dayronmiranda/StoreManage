@@ -10,7 +10,7 @@ class IncidentType(Document):
     code: Indexed(str, unique=True)
     name: str
     category: str  # reception/operation/inventory/sale
-    isActive: bool = True
+    is_active: bool = True
     description: Optional[str] = None
     
     class Settings:
@@ -18,7 +18,7 @@ class IncidentType(Document):
         indexes = [
             IndexModel([("code", 1)], unique=True),
             IndexModel([("category", 1)]),
-            IndexModel([("isActive", 1)]),
+            IndexModel([("is_active", 1)]),
         ]
 
 

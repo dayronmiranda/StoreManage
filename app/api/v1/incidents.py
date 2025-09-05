@@ -425,7 +425,7 @@ async def list_incident_types(
     if category:
         query["category"] = category
     if is_active is not None:
-        query["isActive"] = is_active
+        query["is_active"] = is_active
     
     types = await IncidentType.find(query).to_list()
     
