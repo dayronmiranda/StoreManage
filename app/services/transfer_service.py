@@ -4,7 +4,7 @@ from datetime import datetime
 from fastapi import HTTPException, status
 
 from app.models.transfers import Transfer, TransferDetail, GoodsInTransit
-from app.models.products import Product
+from app.models.product import Product
 from app.models.warehouses import Warehouse
 from app.schemas.transfer import (
     TransferCreate, 

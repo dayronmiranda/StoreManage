@@ -3,8 +3,8 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from beanie import PydanticObjectId
 from datetime import datetime
 
-from app.models.transfer import Transfer, GoodsInTransit
-from app.models.warehouse import Warehouse
+from app.models.transfers import Transfer, GoodsInTransit
+from app.models.warehouses import Warehouse
 from app.models.user import User
 from app.schemas.transfer import (
     TransferCreate,
@@ -14,8 +14,8 @@ from app.schemas.transfer import (
     ApproveTransfer,
     DispatchTransfer,
     ReceiveTransfer,
-    GoodsInTransitCreate,
-    GoodsInTransitResponse
+    MerchandiseTransitCreate,
+    MerchandiseTransitResponse
 )
 from app.schemas.common import PaginatedResponse, PaginationParams
 from app.core.dependencies import get_current_active_user
@@ -425,7 +425,7 @@ async def update_transfer(
 
 
 # TRANSIT ENDPOINTS
-@router.get("/{transfer_id}/transit", response_model=List[GoodsInTransitResponse])
+@router.get("/{transfer_id}/transit", response_model=List[MerchandiseTransitResponse])
 async def get_transfer_transit_history(
     transfer_id: str,
     current_user: User = Depends(get_current_active_user)
@@ -453,7 +453,7 @@ async def get_transfer_transit_history(
     ).sort([("update_date", -1)]).to_list()
     
     return [
-        GoodsInTransitResponse(
+        MerchandiseTransitResponse(
             id=str(transit.id),
             transfer_id=transit.transfer_id,
             current_location=transit.current_location,
@@ -469,10 +469,10 @@ async def get_transfer_transit_history(
     ]
 
 
-@router.post("/{transfer_id}/transit", response_model=GoodsInTransitResponse)
+@router.post("/{transfer_id}/transit", response_model=MerchandiseTransitResponse)
 async def update_transfer_transit(
     transfer_id: str,
-    transit_data: GoodsInTransitCreate,
+    transit_data: MerchandiseTransitCreate,
     current_user: User = Depends(get_current_active_user)
 ):
     """Update transit status of a transfer"""
@@ -512,7 +512,7 @@ async def update_transfer_transit(
     
     await transit.insert()
     
-    return GoodsInTransitResponse(
+    return MerchandiseTransitResponse(
         id=str(transit.id),
         transfer_id=transit.transfer_id,
         current_location=transit.current_location,

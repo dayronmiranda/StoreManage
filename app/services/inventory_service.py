@@ -5,7 +5,7 @@ from beanie import PydanticObjectId
 from fastapi import HTTPException, status
 
 from app.models.inventories import Inventory, InventoryMovement
-from app.models.products import Product
+from app.models.product import Product
 from app.models.warehouses import Warehouse
 from app.schemas.inventory import InventoryAdjustment
 

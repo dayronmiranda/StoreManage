@@ -3,8 +3,8 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from beanie import PydanticObjectId
 from datetime import datetime, timedelta
 
-from app.models.sale import Sale, Customer, PaymentMethod
-from app.models.warehouse import Warehouse
+from app.models.sales import Sale, Customer, PaymentMethod
+from app.models.warehouses import Warehouse
 from app.models.user import User
 from app.schemas.sale import (
     SaleCreate,

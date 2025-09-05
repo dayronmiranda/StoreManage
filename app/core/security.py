@@ -111,11 +111,7 @@ def generate_password_reset_token(email: str) -> str:
     return encoded_jwt
 
 
-def verify_password_reset_.py
-
-I will now proceed to the next section of the checklist, which is "Import Statements and References". Since this task is spread across multiple files, I will address it as I encounter files that need changes. I will start by checking the files I have already modified in this session: `app/models/financials.py` and `app/models/incidents.py`. I will check their content and the files that import them to see if any import statements need to be updated.
-
-First, I will review the contents of `app/models/financials.py` again to confirm the new class names.token(token: str) -> Optional[str]:
+def verify_password_reset_token(token: str) -> Optional[str]:
     """Verify password reset token"""
     try:
         decoded_token = jwt.decode(

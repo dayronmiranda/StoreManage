@@ -5,7 +5,7 @@ from decimal import Decimal
 from bson import Decimal128
 
 from app.models.inventories import Inventory, InventoryMovement
-from app.models.products import Product
+from app.models.product import Product
 from app.models.warehouses import Warehouse
 from app.models.user import User
 from app.schemas.inventory import (

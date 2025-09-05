@@ -4,9 +4,9 @@ from datetime import datetime
 from fastapi import HTTPException, status
 
 from app.models.sales import Sale, SaleDetail, Customer, PaymentMethod
-from app.models.products import Product
+from app.models.product import Product
 from app.models.warehouses import Warehouse
-from app.schemas.sales import SaleCreate, SaleDetailCreate
+from app.schemas.sale import SaleCreate, SaleDetailCreate
 from app.services.inventory_service import InventoryService
 from app.utils.generators import generate_sale_number
 
