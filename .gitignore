@@ -1,0 +1,7 @@
+__pycache__
+.github
+.pytest_cache
+.qodo
+.venv
+.vscode
+venv
