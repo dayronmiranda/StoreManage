@@ -3,37 +3,37 @@ from beanie import init_beanie
 from app.config import settings
 import logging
 
-# Configurar logging
+# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Cliente MongoDB global
+# Global MongoDB client
 client: AsyncIOMotorClient = None
 
 
 async def connect_to_mongo():
-    """Crear conexión a MongoDB"""
+    """Create MongoDB connection"""
     global client
     try:
         client = AsyncIOMotorClient(settings.MONGODB_URL)
-        # Verificar conexión
+        # Verify connection
         await client.admin.command('ping')
-        logger.info(f"Conectado a MongoDB: {settings.MONGODB_URL}")
+        logger.info(f"Connected to MongoDB: {settings.MONGODB_URL}")
     except Exception as e:
-        logger.error(f"Error conectando a MongoDB: {e}")
+        logger.error(f"Error connecting to MongoDB: {e}")
         raise
 
 
 async def close_mongo_connection():
-    """Cerrar conexión a MongoDB"""
+    """Close MongoDB connection"""
     global client
     if client:
         client.close()
-        logger.info("Conexión a MongoDB cerrada")
+        logger.info("MongoDB connection closed")
 
 
 async def init_db():
-    """Inicializar base de datos y modelos Beanie"""
+    """Initialize database and Beanie models"""
     try:
         # Import all models here to avoid circular imports
         from app.models.user import User, Token
@@ -42,65 +42,65 @@ async def init_db():
         from app.models.inventories import Inventory, InventoryMovement
         from app.models.sales import Sale, Customer, PaymentMethod, Invoice
         from app.models.transfers import Transfer, GoodsInTransit
-        from app.models.incidents import Incidencia, TipoIncidencia
-        from app.models.financial import GastoOperativo, CategoriaGasto, CorteCaja
-        from app.models.audit import LogEvento, LogAcceso
+        from app.models.incidents import Incident, IncidentType
+        from app.models.financials import OperationalExpense, ExpenseCategory, CashCut
+        from app.models.audits import EventLog, AccessLog
         
-        # Conectar a MongoDB
+        # Connect to MongoDB
         await connect_to_mongo()
         
-        # Inicializar Beanie con todos los modelos
+        # Initialize Beanie with all models
         await init_beanie(
             database=client[settings.DATABASE_NAME],
             document_models=[
-                # Autenticación
-                Usuario,
+                # Authentication
+                User,
                 Token,
                 
-                # Productos
-                Producto,
-                Categoria,
-                UnidadMedida,
+                # Products
+                Product,
+                Category,
+                UnitOfMeasure,
                 
-                # Almacenes
-                Almacen,
+                # Warehouses
+                Warehouse,
                 
-                # Inventario
-                Inventario,
-                MovimientoInventario,
+                # Inventory
+                Inventory,
+                InventoryMovement,
                 
-                # Ventas
-                Venta,
-                Cliente,
-                MetodoPago,
-                Factura,
+                # Sales
+                Sale,
+                Customer,
+                PaymentMethod,
+                Invoice,
                 
-                # Transferencias
-                Transferencia,
-                TransitoMercancia,
+                # Transfers
+                Transfer,
+                GoodsInTransit,
                 
-                # Incidencias
-                Incidencia,
-                TipoIncidencia,
+                # Incidents
+                Incident,
+                IncidentType,
                 
-                # Financiero
-                GastoOperativo,
-                CategoriaGasto,
-                CorteCaja,
+                # Financial
+                OperationalExpense,
+                ExpenseCategory,
+                CashCut,
                 
-                # Auditoría
-                LogEvento,
-                LogAcceso,
+                # Audit
+                EventLog,
+                AccessLog,
             ]
         )
         
-        logger.info("Base de datos inicializada correctamente")
+        logger.info("Database initialized successfully")
         
     except Exception as e:
-        logger.error(f"Error inicializando base de datos: {e}")
+        logger.error(f"Error initializing database: {e}")
         raise
 
 
 def get_database():
-    """Obtener instancia de la base de datos"""
+    """Get database instance"""
     return client[settings.DATABASE_NAME]

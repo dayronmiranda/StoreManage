@@ -6,7 +6,7 @@ from decimal import Decimal
 from pymongo import IndexModel
 
 
-class TipoIncidencia(Document):
+class IncidentType(Document):
     code: Indexed(str, unique=True)
     name: str
     category: str  # reception/operation/inventory/sale
@@ -22,7 +22,7 @@ class TipoIncidencia(Document):
         ]
 
 
-class DetalleIncidencia(BaseModel):  # Embedded
+class IncidentDetail(BaseModel):  # Embedded
     productId: str
     productCode: str  # Denormalized
     productName: str  # Denormalized
@@ -31,7 +31,7 @@ class DetalleIncidencia(BaseModel):  # Embedded
     totalCost: Decimal
 
 
-class EvidenciaIncidencia(BaseModel):  # Embedded
+class IncidentEvidence(BaseModel):  # Embedded
     filePath: str
     fileType: str  # image/document
     description: Optional[str] = None
@@ -39,7 +39,7 @@ class EvidenciaIncidencia(BaseModel):  # Embedded
     fileSize: Optional[int] = None
 
 
-class Incidencia(Document):
+class Incident(Document):
     incidentNumber: Indexed(str, unique=True)
     incidentTypeId: str
     warehouseId: str
@@ -53,8 +53,8 @@ class Incidencia(Document):
     resolutionDate: Optional[datetime] = None
     referenceId: Optional[str] = None  # Sale ID, transfer ID, etc.
     referenceType: Optional[str] = None  # sale/transfer/reception
-    details: List[DetalleIncidencia] = []  # Embedded
-    evidence: List[EvidenciaIncidencia] = []  # Embedded
+    details: List[IncidentDetail] = []  # Embedded
+    evidence: List[IncidentEvidence] = []  # Embedded
     
     # Additional information
     priority: str = "medium"  # low/medium/high/critical

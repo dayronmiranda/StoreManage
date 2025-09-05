@@ -6,7 +6,7 @@ from decimal import Decimal
 from pymongo import IndexModel
 
 
-class CategoriaGasto(Document):
+class ExpenseCategory(Document):
     name: Indexed(str, unique=True)
     description: Optional[str] = None
     isActive: bool = True
@@ -20,7 +20,7 @@ class CategoriaGasto(Document):
         ]
 
 
-class GastoOperativo(Document):
+class OperationalExpense(Document):
     warehouseId: str
     expenseCategoryId: str
     description: str  # Mandatory descriptive note
@@ -50,7 +50,7 @@ class GastoOperativo(Document):
         ]
 
 
-class CorteCaja(Document):
+class CashCut(Document):
     warehouseId: str
     userId: str
     cutDate: datetime
@@ -84,7 +84,7 @@ class CorteCaja(Document):
         ]
 
 
-class MovimientoCaja(Document):
+class CashMovement(Document):
     warehouseId: str
     cashCutId: Optional[str] = None
     movementType: str  # inbound/outbound
