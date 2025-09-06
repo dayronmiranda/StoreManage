@@ -60,7 +60,7 @@ class InventoryMovementResponse(InventoryMovementBase):
     
     id: str
     previous_quantity: Decimal
-    posterior_quantity: Decimal
+    new_quantity: Decimal
     user_id: str
     movement_date: datetime
     total_value: Optional[Decimal] = None

@@ -165,19 +165,19 @@ async def adjust_inventory(
         
         return InventoryMovementResponse(
             id=str(movement.id),
-            warehouse_id=movement.warehouseId,
-            product_id=movement.productId,
-            movement_type=movement.movementType,
+            warehouse_id=movement.warehouse_id,
+            product_id=movement.product_id,
+            movement_type=movement.movement_type,
             quantity=movement.quantity,
-            previous_quantity=movement.previousQuantity,
-            new_quantity=movement.newQuantity,
-            user_id=movement.userId,
-            movement_date=movement.movementDate,
+            previous_quantity=movement.previous_quantity,
+            new_quantity=movement.new_quantity,
+            user_id=movement.user_id,
+            movement_date=movement.movement_date,
             reason=movement.reason,
-            reference_id=movement.referenceId,
-            reference_type=movement.referenceType,
-            unit_cost=movement.unitCost,
-            total_value=movement.totalValue,
+            reference_id=movement.reference_id,
+            reference_type=movement.reference_type,
+            unit_cost=movement.unit_cost,
+            total_value=movement.total_value,
             product_name=product.name if product else None,
             product_code=product.code if product else None,
             warehouse_name=warehouse.name if warehouse else None,
@@ -271,16 +271,16 @@ async def list_inventory_movements(
         warehouse = mov.get("warehouse", [{}])[0] if mov.get("warehouse") else {}
         user = mov.get("user", [{}])[0] if mov.get("user") else {}
         
-        movement_responses.append(InventoryMovementResponse(
+    movement_responses.append(InventoryMovementResponse(
             id=str(mov["_id"]),
-            warehouse_id=mov["warehouseId"],
-            product_id=mov["productId"],
-            movement_type=mov["movementType"],
+            warehouse_id=mov["warehouse_id"],
+            product_id=mov["product_id"],
+            movement_type=mov["movement_type"],
             quantity=convert_decimal128_to_decimal(mov["quantity"]),
-            previous_quantity=convert_decimal128_to_decimal(mov["previousQuantity"]),
-            new_quantity=convert_decimal128_to_decimal(mov["newQuantity"]),
-            user_id=mov["userId"],
-            movement_date=mov["movementDate"],
+            previous_quantity=convert_decimal128_to_decimal(mov["previous_quantity"]),
+            new_quantity=convert_decimal128_to_decimal(mov["new_quantity"]),
+            user_id=mov["user_id"],
+            movement_date=mov["movement_date"],
             reason=mov.get("reason"),
             reference_id=mov.get("referenceId"),
             reference_type=mov.get("referenceType"),
@@ -289,7 +289,7 @@ async def list_inventory_movements(
             product_name=product.get("name"),
             product_code=product.get("code"),
             warehouse_name=warehouse.get("name"),
-            user_name=f"{user.get('firstName', '')} {user.get('lastName', '')}".strip()
+            user_name=f"{user.get('fi   rstName', '')} {user.get('lastName', '')}".strip()
         ))
     
     total_pages = (total_movements + pagination.size - 1) // pagination.size
