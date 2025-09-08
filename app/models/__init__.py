@@ -1,1 +1,0 @@
-# Modelos del sistema
