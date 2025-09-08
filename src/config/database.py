@@ -38,10 +38,11 @@ async def init_db():
         # Import all models here to avoid circular imports
         from src.models.user import User
         from src.models.audit import AccessLog
-        
+        from src.models.warehouse import Warehouse
+
         # Connect to MongoDB
         await connect_to_mongo()
-        
+
         # Initialize Beanie with all models
         await init_beanie(
             database=client[settings.DATABASE_NAME],
@@ -50,6 +51,8 @@ async def init_db():
                 User,
                 # Audit
                 AccessLog,
+                # Warehouses
+                Warehouse,
             ]
         )
         

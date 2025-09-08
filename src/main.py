@@ -126,7 +126,10 @@ async def root():
 
 # Importar y registrar routers
 from src.auth import router as auth_router
+from src.warehouse import router as warehouse_router
+
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["Authentication"])
+app.include_router(warehouse_router, prefix="/api/v1", tags=["Warehouses"])
 
 
 if __name__ == "__main__":
